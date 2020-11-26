@@ -1,0 +1,72 @@
+body {
+  margin: 10px;
+  font-family: Impact, Haettenschweiler, sans serif;
+  background: #131313;
+  color: #eeebff;
+}
+
+h1,
+p {
+  margin: 0;
+
+}
+
+.intro-text {
+
+  font-style: bold;
+  margin: 70px 10px;
+  text-align: center;
+}
+
+#lamp-button {
+  background-color: pink;
+  border: none;
+  color: auto;
+  padding: 25px 45px;
+  text-align: center;
+  margin-top: 60px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 22px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.div-lamp-button {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  z-index: 100;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -150px;
+  /*background: red;*/
+}
+}
+
+#join-raid-button:disabled,
+#join-raid-button[disabled] {
+  background-color: #efefef;
+  cursor: wait;
+}
+
+#twitch-embed,
+#twitch-embed>iframe {
+  min-height: 95vh;
+
+}
+
+
+#page-container {
+  position: relative;
+  min-height: 95vh;
+}
+
+#content-wrap {
+  padding-bottom: 6.5rem;    /* Footer height */
+}
+
+
+
+
