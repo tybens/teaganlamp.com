@@ -2,11 +2,9 @@
 
 Basic flask app to interact with teagan lamp.
 
-
-`git clone https://github.com/tybens/teaganLamp`
-
 ```Bash 
-cd teaganLamp
+git clone https://github.com/tybens/teaganLamp
+cd teaganlamp.com
 # virtual environment setup
 python3 -m venv venv
 sourve venv/bin/activate
