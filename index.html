@@ -29,21 +29,29 @@
     <script type="text/javascript">
       // this is your arduino server
       let server =  window.location.hostname === '127.0.0.1' ? 'http://127.0.0.1:5000':'https://teaganlamp.com';
+      var socket = io.connect(server);
 
 
       const lampButton = document.getElementById('lamp-button');
 
       // need to fetch status of lamp (on or off) from server
-      var isLampOn;
-      fetch(`${server}/getLamp`).then(response => response.json())
-        .then(response => {
-          console.log(response)
-          isLampOn = response.isLampOn;
-          changeLampButton(isLampOn);
-          console.log(isLampOn)
-        }).catch((error) => {
-          console.error('Error:', error);
+      socket.on('lamp changed', function(isLampOn) {
+        // hopefully this updates my client isLampOn variable
+        changeLampButton(isLampOn)
+        console.log('server lamp is ' + String(isLampOn))
       });
+
+      getLamp()
+      async function getLamp() {
+        fetch(`${server}/getLamp`).then(response => response.json())
+          .then(response => {
+            isLampOn = response.isLampOn;
+            changeLampButton(isLampOn);
+            console.log('get lamp returned: '+ String(isLampOn))
+          }).catch((error) => {
+            console.error('Error:', error);
+        });
+      }
 
 
       async function changeLampButton(isLampOn) {
@@ -59,16 +67,16 @@
       }
 
       async function doLamp() {
+        // this oldLampOn shouldn't be relevant now that we have web socket, but I'll keep it just in case
         isLampOn = (!isLampOn)
         changeLampButton(isLampOn)
         // fetch request to change lamp
         fetch(`${server}/changeLamp`).then(response => response.json())
           .then(response => {
-            console.log(response)
           }).catch((error) => {
             console.error('Error:', error);
           });
-      }
+          } 
 
       lampButton.addEventListener('click', doLamp)
 
