@@ -1,7 +1,7 @@
 server {
     listen 80;
     server_name teaganlamp.com www.teaganlamp.com;
-    root /var/www/static;
+    root /var/www/teaganlamp.com/html;
     index index.html;
 	
 	location / { 

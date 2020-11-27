@@ -9,8 +9,7 @@ from flask_socketio import SocketIO, send, emit
 
 # check if in production and change static location
 dir_path = os.path.dirname(os.path.realpath(__file__))
-static_folder = '/var/www/static' if (dir_path == '/srv/teaganlamp.com') else '/home/tylerbenson/PersonalProjects/teaganLamp'
-
+static_folder = '/var/www/teaganlamp.com/html'
 app = Flask(__name__, static_url_path='', static_folder=static_folder) 
 CORS(app)
 app.config['SECRET_KEY'] = 'secret!!'
