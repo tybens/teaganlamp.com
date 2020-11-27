@@ -40,7 +40,7 @@
         changeLampButton(isLampOn)
         console.log('server lamp is ' + String(isLampOn))
       });
-
+      var isLampOn;
       getLamp()
       async function getLamp() {
         fetch(`${server}/getLamp`).then(response => response.json())

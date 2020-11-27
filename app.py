@@ -9,7 +9,7 @@ from flask_socketio import SocketIO, send, emit
 
 # check if in production and change static location
 dir_path = os.path.dirname(os.path.realpath(__file__))
-static_folder = '/var/www/static' if (dir_path == '/srv/teagalamp') else 'static'
+static_folder = '/var/www/static' if (dir_path == '/srv/teaganlamp.com') else '/home/tylerbenson/PersonalProjects/teaganLamp'
 
 app = Flask(__name__, static_url_path='', static_folder=static_folder) 
 CORS(app)
@@ -18,6 +18,10 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 
 
 isLampOn = False
+
+@app.route('/')
+def root():
+	return app.send_static_file('index.html')
 
 
 @app.route('/getLamp')
