@@ -20,27 +20,27 @@ optionally start another client with `live-server` (to see the button change for
 
 ```Bash
 cd /srv # wherever we want the app to be
-git clone https://github.com/tybens/teaganlamp.com.git
+sudo git clone https://github.com/tybens/teaganlamp.com.git
 cd teaganlamp.com
 sudo apt-get update
-sudo apt install -U python3-pip python3-dev python3-venv
+sudo apt install python3-pip python3-dev python3-venv
 python3 -m venv venv
 source venv/bin/activate
 sudo pip3 install -r requirements.txt
 
-# static files
+# static files setup
 sudo mkdir /var/www/static
-sudo mv -v index.html /var/www/static/
+sudo mv -v static/* /var/www/static/
 sudo chown 755 /var/www/static
 
 # nginx config
-sudo mv nginx-teaganlamp /etc/nginx/sites-available/nginx-teaganlamp
+sudo mv etc/nginx-teaganlamp /etc/nginx/sites-available/nginx-teaganlamp
 sudo ln -s /etc/nginx/sites-available/nginx-teaganlamp /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 sudo ufw allow 'Nginx Full'  # not sure if this is necessary (the article said it was)
 
 # systemctl setup
-sudo mv gunicorn.service /etc/systemd/system/gunicorn.service
+sudo mv etc/gunicorn.service /etc/systemd/system/gunicorn.service
 sudo systemctl start gunicorn  # to start the gunicorn
 sudo systemctl enable gunicorn # to enable gunicorn to start on system startup
 
