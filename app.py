@@ -18,7 +18,7 @@ CORS(app)
 app.config['SECRET_KEY'] = 'secret!!'
 socketio = SocketIO(app, cors_allowed_origins='*')
 
-
+totalClicks = 0
 isLampOn = False
 
 @app.route('/')
