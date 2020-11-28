@@ -26,18 +26,23 @@ def root():
 	return app.send_static_file('index.html')
 
 
-@app.route('/getLamp')
-def getLamp():
+@app.route('/getLampAndClicks')
+def getLampAndClicks():
     global isLampOn
-
-    return {'isLampOn': isLampOn}
+    global totalClicks
+    return {'isLampOn': isLampOn,
+    		'totalClicks': totalClicks}
 
 @app.route('/changeLamp')
 def changeLamp():
     global isLampOn
+    global totalClicks
+
+    totalClicks += 1
     # do something that changes lamp... idk how
     isLampOn = not isLampOn
-    socketio.emit('lamp changed', isLampOn)
+
+    socketio.emit('lamp changed', {'isLampOn':isLampOn, 'totalClicks':totalClicks})
     return {'success': 200}
 
 if __name__ == "__main__":
