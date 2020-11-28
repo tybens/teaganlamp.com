@@ -37,13 +37,13 @@
         changeLampButton(response.isLampOn, response.totalClicks)
         //console.log('server lamp is ' + String(isLampOn))
       });
-      var isLampOn;
+
       getLamp()
       async function getLamp() {
         fetch(`${server}/getLampAndClicks`).then(response => response.json())
           .then(response => {
             changeLampButton(response.isLampOn, response.totalClicks);
-            console.log('get lamp returned: '+ String(isLampOn))
+            
           }).catch((error) => {
             console.error('Error:', error);
         });
