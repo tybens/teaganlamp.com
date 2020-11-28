@@ -108,6 +108,17 @@ p {
   margin: -100px 0 0 -150px;
   /*background: red;*/
 }
+
+#click-count {
+  position: relative;
+  background-color: #202020;
+  border: none;
+  color: white;
+  display: block;
+  text-align: center;
+  margin: auto;
+  margin: 40px;
+  padding: 10px;
 }
 
 #page-container {

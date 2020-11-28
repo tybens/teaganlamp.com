@@ -13,7 +13,7 @@ Group=www-data
 WorkingDirectory=/srv/teaganlamp.com
 Environment="PATH=/srv/teaganlamp.com/venv/bin"
 # We'll then specify the commanded to start the service
-ExecStart=/srv/teaganlamp.com/venv/bin/gunicorn -b 127.0.0.1:5000 --worker-class eventlet -w 1 app:app
+ExecStart=/usr/local/bin/gunicorn -b 127.0.0.1:5000 --worker-class eventlet -w 1 app:app
 
 # This will tell systemd what to link this service to if we enable it to start at boot. We want this service to start when the regular multi-user system is up and running:
 

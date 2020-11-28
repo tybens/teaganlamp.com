@@ -15,15 +15,9 @@
         <h1>teagan lamp</h1>
         <p style="margin-top: 10px;">control teagan lamp from the comfort of ANYWHERE</p>
       </div>
-      <!--
-      <div class="refresh">
-        <button id="new-streamer-button" disabled>please wait...</button>
-      </div> -->
-      <section class ="light-bulbs">
-        <div class="light-bulb main"></div>
-      </section>  
       <div class="div-lamp-button">
         <button id="lamp-button">Off</button>
+        <div id="click-count"></div>
       </div>
 
 
@@ -37,27 +31,29 @@
 
       const lampButton = document.getElementById('lamp-button');
       const lightBulbContainer = document.querySelector('.light-bulbs');
+      const clickCount = document.getElementById('click-count');
+
       // need to fetch status of lamp (on or off) from server
-      socket.on('lamp changed', function(isLampOn) {
+      socket.on('lamp changed', function(response) {
         // hopefully this updates my client isLampOn variable
-        changeLampButton(isLampOn); 
+        changeLampButton(response.isLampOn, response.totalClicks)
         //console.log('server lamp is ' + String(isLampOn))
       });
-      var isLampOn;
-      getLamp();
+
+      getLamp()
+      
       async function getLamp() {
-        fetch(`${server}/getLamp`).then(response => response.json())
+        fetch(`${server}/getLampAndClicks`).then(response => response.json())
           .then(response => {
-            isLampOn = response.isLampOn;
-            changeLampButton(isLampOn);
-            console.log('get lamp returned: '+ String(isLampOn))
+            changeLampButton(response.isLampOn, response.totalClicks);
+            
           }).catch((error) => {
             console.error('Error:', error);
         });
       }
 
 
-      async function changeLampButton(isLampOn) {
+      async function changeLampButton(isLampOn, totalClicks) {
         if (!isLampOn) {
           lampButton.innerText = 'On';
           lampButton.style.backgroundColor = 'grey';
@@ -68,19 +64,17 @@
           lampButton.style.backgroundColor = 'pink';
         }
         lightBulbContainer.classList.toggle('on');
+        clickCount.innerText = 'THIS LAMP HAS BEEN CHANGED ' + String(totalClicks) + ' TIMES'
       }
 
       async function doLamp() {
-        // this oldLampOn shouldn't be relevant now that we have web socket, but I'll keep it just in case
-        isLampOn = (!isLampOn);
-        changeLampButton(isLampOn);
         // fetch request to change lamp
         fetch(`${server}/changeLamp`).then(response => response.json())
           .then(response => {
           }).catch((error) => {
             console.error('Error:', error);
           });
-          } 
+      } 
 
       lampButton.addEventListener('click', doLamp);
 
