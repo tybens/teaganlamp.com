@@ -7,9 +7,12 @@ from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_socketio import SocketIO, send, emit
 
+PROD = False
 # check if in production and change static location
-dir_path = os.path.dirname(os.path.realpath(__file__))
-static_folder = '/var/www/teaganlamp.com/html'
+if PROD:
+	static_folder = '/var/www/teaganlamp.com/html'
+else:
+	static_folder = '/home/tylerbenson/teaganLamp/static'
 app = Flask(__name__, static_url_path='', static_folder=static_folder) 
 CORS(app)
 app.config['SECRET_KEY'] = 'secret!!'
