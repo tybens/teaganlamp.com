@@ -1,21 +1,86 @@
+:root{
+  --lightbulb-color: #f0c517;
+  --white: #fff;
+  --black: #000;
+  --grey: #999;
+  background: var(--black);
+  color: var(--white);
+}
+
+@keyframes light-up-main {
+  0%{
+    box-shadow: 0 1px 10px 5px var(--lightbulb-color);
+  }
+  25%{
+    box-shadow: 0 1px 15px 5px var(--lightbulb-color);
+  }
+  50%{
+    box-shadow: 0 1px 20px 5px var(--lightbulb-color);    
+  }
+  75%{
+    box-shadow: 0 1px 20px 5px var(--lightbulb-color);
+  }
+  100%{
+    box-shadow: none;
+  }
+}
+
 body {
   margin: 10px;
   font-family: Impact, Haettenschweiler, sans serif;
-  background: #131313;
-  color: #eeebff;
 }
 
 h1,
 p {
   margin: 0;
-
 }
 
 .intro-text {
-
   font-style: bold;
   margin: 70px 10px;
   text-align: center;
+}
+
+.light-bulbs {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.light-bulb{
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  position: relative;
+}
+
+.light-bulbs.on .light-bulb{
+  animation-duration: 1.1s;
+  animation-iteration-count: infinite;
+}
+
+.light-bulbs.on .light-bulb.main{
+  background: var(--lightbulb-color);
+  animation-name: light-up-main;
+}
+
+.light-bulb::before{
+  content: '';
+  position: absolute;
+  border: 2px solid #222;
+  width: 20px;
+  height: 20px;
+  background: #222;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  left: 25%;
+  top: 48px;
+}
+
+.light-bulb.main{
+  background: var(--grey);
 }
 
 #lamp-button {

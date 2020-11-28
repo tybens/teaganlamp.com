@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Teagan Lamp</title>
     <link rel="stylesheet" href="styles.css" type="text/css">
   </head>
@@ -19,6 +19,9 @@
       <div class="refresh">
         <button id="new-streamer-button" disabled>please wait...</button>
       </div> -->
+      <section class ="light-bulbs">
+        <div class="light-bulb main"></div>
+      </section>  
       <div class="div-lamp-button">
         <button id="lamp-button">Off</button>
       </div>
@@ -33,15 +36,15 @@
 
 
       const lampButton = document.getElementById('lamp-button');
-
+      const lightBulbContainer = document.querySelector('.light-bulbs');
       // need to fetch status of lamp (on or off) from server
       socket.on('lamp changed', function(isLampOn) {
         // hopefully this updates my client isLampOn variable
-        changeLampButton(isLampOn)
+        changeLampButton(isLampOn); 
         //console.log('server lamp is ' + String(isLampOn))
       });
       var isLampOn;
-      getLamp()
+      getLamp();
       async function getLamp() {
         fetch(`${server}/getLamp`).then(response => response.json())
           .then(response => {
@@ -64,12 +67,13 @@
           lampButton.style.color = 'black';
           lampButton.style.backgroundColor = 'pink';
         }
+        lightBulbContainer.classList.toggle('on');
       }
 
       async function doLamp() {
         // this oldLampOn shouldn't be relevant now that we have web socket, but I'll keep it just in case
-        isLampOn = (!isLampOn)
-        changeLampButton(isLampOn)
+        isLampOn = (!isLampOn);
+        changeLampButton(isLampOn);
         // fetch request to change lamp
         fetch(`${server}/changeLamp`).then(response => response.json())
           .then(response => {
@@ -78,7 +82,7 @@
           });
           } 
 
-      lampButton.addEventListener('click', doLamp)
+      lampButton.addEventListener('click', doLamp);
 
     </script>
     <script>
