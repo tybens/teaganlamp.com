@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Teagan Lamp</title>
     <link rel="stylesheet" href="styles.css" type="text/css">
   </head>
@@ -30,7 +30,9 @@
 
 
       const lampButton = document.getElementById('lamp-button');
+      const lightBulbContainer = document.querySelector('.light-bulbs');
       const clickCount = document.getElementById('click-count');
+
       // need to fetch status of lamp (on or off) from server
       socket.on('lamp changed', function(response) {
         // hopefully this updates my client isLampOn variable
@@ -39,6 +41,7 @@
       });
 
       getLamp()
+      
       async function getLamp() {
         fetch(`${server}/getLampAndClicks`).then(response => response.json())
           .then(response => {
@@ -60,11 +63,11 @@
           lampButton.style.color = 'black';
           lampButton.style.backgroundColor = 'pink';
         }
+        lightBulbContainer.classList.toggle('on');
         clickCount.innerText = 'THIS LAMP HAS BEEN CHANGED ' + String(totalClicks) + ' TIMES'
       }
 
       async function doLamp() {
-
         // fetch request to change lamp
         fetch(`${server}/changeLamp`).then(response => response.json())
           .then(response => {
@@ -73,7 +76,7 @@
           });
       } 
 
-      lampButton.addEventListener('click', doLamp)
+      lampButton.addEventListener('click', doLamp);
 
     </script>
     <script>
