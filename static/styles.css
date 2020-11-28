@@ -45,19 +45,6 @@ p {
 }
 }
 
-#join-raid-button:disabled,
-#join-raid-button[disabled] {
-  background-color: #efefef;
-  cursor: wait;
-}
-
-#twitch-embed,
-#twitch-embed>iframe {
-  min-height: 95vh;
-
-}
-
-
 #page-container {
   position: relative;
   min-height: 95vh;
