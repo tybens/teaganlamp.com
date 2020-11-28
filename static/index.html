@@ -16,7 +16,7 @@
         <p style="margin-top: 10px;">control teagan lamp from the comfort of ANYWHERE</p>
       </div>
       <div class="div-lamp-button">
-        <button id="lamp-button">Turn Off Lamp</button>
+        <button id="lamp-button">Off</button>
       </div>
 
 
@@ -34,7 +34,7 @@
       socket.on('lamp changed', function(isLampOn) {
         // hopefully this updates my client isLampOn variable
         changeLampButton(isLampOn)
-        console.log('server lamp is ' + String(isLampOn))
+        //console.log('server lamp is ' + String(isLampOn))
       });
       var isLampOn;
       getLamp()
@@ -52,12 +52,12 @@
 
       async function changeLampButton(isLampOn) {
         if (!isLampOn) {
-          lampButton.innerText = 'Turn On Lamp';
+          lampButton.innerText = 'On';
           lampButton.style.backgroundColor = 'grey';
           lampButton.style.color = 'white';
         } else {
-          lampButton.innerText = 'Turn Off Lamp';
-          lampButton.style.color = 'black'
+          lampButton.innerText = 'Off';
+          lampButton.style.color = 'black';
           lampButton.style.backgroundColor = 'pink';
         }
       }
