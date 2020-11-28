@@ -19,7 +19,7 @@
         <div class="light-bulb main"></div>
       </section>
       <div class="div-lamp-button">
-        <button id="lamp-button">Off</button>
+        <button id="lamp-button">Turn Off Lamp</button>
         <div id="click-count"></div>
       </div>
 
@@ -58,15 +58,18 @@
 
       async function changeLampButton(isLampOn, totalClicks) {
         if (!isLampOn) {
-          lampButton.innerText = 'On';
+          lampButton.innerText = 'Turn On Lamp';
           lampButton.style.backgroundColor = 'grey';
           lampButton.style.color = 'white';
+          lightBulbContainer.classList.remove('on');
+
         } else {
-          lampButton.innerText = 'Off';
+          lampButton.innerText = 'Turn Off Lamp';
           lampButton.style.color = 'black';
-          lampButton.style.backgroundColor = 'pink';
+          lampButton.style.backgroundColor = 'lemonchiffon';
+          lightBulbContainer.classList.add('on');
         }
-        lightBulbContainer.classList.toggle('on');
+
         clickCount.innerText = 'THIS LAMP HAS BEEN CHANGED ' + String(totalClicks) + ' TIMES'
       }
 

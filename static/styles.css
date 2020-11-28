@@ -1,5 +1,5 @@
 :root{
-  --lightbulb-color: #f0c517;
+  --lightbulb-color: #ffe93b;
   --white: #fff;
   --black: #000;
   --grey: #999;
@@ -27,7 +27,7 @@
 
 body {
   margin: 10px;
-  font-family: Impact, Haettenschweiler, sans serif;
+  font-family: Haettenschweiler, sans serif;
 }
 
 h1,
@@ -37,22 +37,23 @@ p {
 
 .intro-text {
   font-style: bold;
-  margin: 70px 10px;
+  margin: 50px 10px;
   text-align: center;
 }
 
 .light-bulbs {
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 0;
+  height: 500px;
   width: 500px;
   margin: 0 auto;
 }
 
 .light-bulb{
   border-radius: 50%;
-  height: 50px;
-  width: 50px;
+  height: 100%;
+  width: 100%;
   position: relative;
 }
 
@@ -66,30 +67,17 @@ p {
   animation-name: light-up-main;
 }
 
-.light-bulb::before{
-  content: '';
-  position: absolute;
-  border: 2px solid #222;
-  width: 20px;
-  height: 20px;
-  background: #222;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  left: 25%;
-  top: 48px;
-}
-
 .light-bulb.main{
   background: var(--grey);
 }
 
 #lamp-button {
-  background-color: pink;
+  background-color: #FFFF99;
   border: none;
   color: auto;
   padding: 25px 45px;
   text-align: center;
-  margin-top: 60px;
+  margin-top: 40px;
   text-decoration: none;
   display: inline-block;
   font-size: 22px;
@@ -118,6 +106,7 @@ p {
   text-align: center;
   margin: auto;
   margin: 40px;
+  margin-top: 10px;
   padding: 10px;
 }
 
