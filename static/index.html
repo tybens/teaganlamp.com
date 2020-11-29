@@ -35,12 +35,24 @@
       const lampButton = document.getElementById('lamp-button');
       const lightBulbContainer = document.querySelector('.light-bulbs');
       const clickCount = document.getElementById('click-count');
+      const usernameInput = document.getElementById('username-input')
+
+      var username;
+      if (localStorage.getItem('username') == 'null') {
+        // show and get username input
+        usernameInput.style.display = '';
+
+      } else {
+        username = localStorage.getItem('username');
+      }
 
       // need to fetch status of lamp (on or off) from server
       socket.on('lamp changed', function(response) {
         // hopefully this updates my client isLampOn variable
         changeLampButton(response.isLampOn, response.totalClicks)
-        //console.log('server lamp is ' + String(isLampOn))
+
+        // TODO: fetch request for leaderboard and update
+
       });
 
       getLamp()
@@ -75,8 +87,16 @@
 
       async function doLamp() {
         // fetch request to change lamp
-        fetch(`${server}/changeLamp`).then(response => response.json())
+        fetch(`${server}/changeLamp`, {
+          method: 'POST',
+          body: JSON.stringify({'username', username}),
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(response => response.json())
           .then(response => {
+            userClicks = response.userClicks
+            // TODO: change userClicks display
           }).catch((error) => {
             console.error('Error:', error);
           });
@@ -84,6 +104,26 @@
 
       lampButton.addEventListener('click', doLamp);
 
+      usernameInput.addEventListener('click', function(username) {
+        fetch(`${server}/createUser`, {
+          method: 'POST',
+          body: JSON.stringify({'username', username}),
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(response => {
+          if (response.status === 200) {
+              console.log('player created!')
+          } else {
+            response.json().then(error => {
+              console.log(error)
+              // TODO: show error (username already exists)
+            })
+          }
+        localStorage.setItem('username', username);
+        localStorage.setItem('clicks', 0);
+        usernameInput.style.display = 'none';
+      });
     </script>
     <script>
       window.dataLayer = window.dataLayer || [];
