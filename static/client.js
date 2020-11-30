@@ -14,7 +14,7 @@ var username;
 var userClicks;
 if (localStorage.getItem('username') == null) {
   // show and get username input
-
+  form.style.display = '';
 
 } else {
   introSection.classList.remove('blurry-text');
