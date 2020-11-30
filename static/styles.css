@@ -6,6 +6,7 @@ html {
   --white: #fff;
   --black: #000;
   --grey: #eee;
+  --darkgrey: #2e2e2e;
   background: var(--black);
   color: var(--grey);
 }
@@ -20,17 +21,75 @@ p {
   margin: 0;
 }
 
+.fade-in {
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .intro-text {
+  pointer-events: none;
+  color: var(--grey);
   font-style: bold;
   margin: 0px 10px;
   padding-top: 1%;
   text-align: center;
   position: relative;
+  z-index: 1;
 }
 
 .blurry-text {
   color: transparent;
   text-shadow: 0 0 3px white;
+}
+.user-div {
+  color: var(--grey);
+  display: inline-block;
+  position: absolute; 
+  right: 2%;
+  border-radius: 5px;
+  margin-top: 1%;
+  padding: 5px;
+  background-color: var(--darkgrey);
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.username-text {
+  text-decoration: underline;
+}
+
+.help-tip{
+  pointer-events: auto;
+  font-weight: bold;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  opacity: 0.9;
+  text-align: center;
+  color: #bd5757;
+  background-color: var(--grey);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 16px;
+  line-height: 23.25px;
+  cursor: pointer;
 }
 
 .form {
@@ -41,6 +100,12 @@ p {
   width: 800px;
   height: 50px;
   transform: translate(-50%, -50%);
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .form input {
@@ -50,13 +115,13 @@ p {
   font-size: 30px;
   letter-spacing: 3px;
   padding-top: 15px;
-  color: --grey;
+  color: var(--grey);
   border: none;
   outline: none;
 }
 
 .form label {
-  color: --grey;
+  color: var(--grey);
   position: absolute;
   bottom: 0px;
   left: 0%;
@@ -94,9 +159,9 @@ input:invalid {
 
 #click-count {
   position: relative;
-  background-color: #202020;
+  background-color: var(--darkgrey);
   border: none;
-  color: --grey;
+  color: var(--grey);
   display: block;
   text-align: center;
   margin: auto;
