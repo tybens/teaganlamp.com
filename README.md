@@ -39,6 +39,12 @@ sudo ln -s /etc/nginx/sites-available/nginx-teaganlamp /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 sudo ufw allow 'Nginx Full'  # not sure if this is necessary (the article said it was)
 
+# redis setup 
+sudo wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+cd redis-stable
+sudo make install
+
 # supervisor setup
 mkdir /var/log/teaganlamp.com  # where the errors are logged
 sudo mv etc/supervisor_services.conf /etc/supervisord.conf

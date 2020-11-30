@@ -21,59 +21,81 @@ app.config['SECRET_KEY'] = 'secret!!'
 socketio = SocketIO(app, cors_allowed_origins='*')
 
 player_redis = redis.Redis(decode_responses=True, db=0)
-player_redis.hset('leaderboard', {'teagan_poopoo':0})
 
 
+# initialize player_redis
 if player_redis.exists('totalClicks'):
     totalClicks = player_redis.get('totalClicks')
 else:
-    player_redis.set('totalClicks', 0)
-    totalClicks = 0
+    player_redis.set('totalClicks', str(0))
+    totalClicks = str(0)
+
+if not player_redis.exists('leaderboard'):
+    player_redis.hmset('leaderboard', {'teagan_poopoo': 0})
+
+if not player_redis.exists('isLampOn'):
+    player_redis.set('isLampOn', 1) 
+    isLampOn = 1
+else:
+    isLampOn = player_redis.get('isLampOn')
 
 
-isLampOn = False
 
 @app.route('/')
 def root():
 	return app.send_static_file('index.html')
 
 
-@app.route('/getLampAndClicks')
+# returns current state of Teagan Lamp as well as total click count
+@app.route('/getLampAndClicksAndUserClicks', methods=["POST"])
 def getLampAndClicks():
     global isLampOn
     global totalClicks
+    username = request.get_json()['username']
+    userClicks = player_redis.get(username)
     return {'isLampOn': isLampOn,
-    		'totalClicks': totalClicks}
+    		'totalClicks': totalClicks,
+            'userClicks': userClicks}
 
-@app.route('/changeLamp')
+@app.route('/changeLamp', methods=["POST"])
 def changeLamp():
     global isLampOn
     global totalClicks
 
-    totalClicks += 1
-    isLampOn = not isLampOn
+    # update total clcks and current lamp state
+    totalClicks = str(int(totalClicks)+1)
+    player_redis.set('totalClicks', totalClicks)
+    isLampOn = int(not isLampOn)
+    player_redis.set('isLampOn', isLampOn)
 
-    username = request.get_json().username
-    newClicks = player_redis.get(username)+1
-    player_redis.set(newClicks)
-    player_redis.hset(player_redis.hgetall('leaderboard').update({username: newClicks}))
+    # update user clicks in database
+    username = request.get_json()['username']
+    newClicks = str(int(player_redis.get(username))+1)
+    player_redis.set(username, newClicks)
+
+    # update leaderboard 
+    leaderboard = player_redis.hgetall('leaderboard')
+    leaderboard.update({username: newClicks})
+    player_redis.hmset('leaderboard', leaderboard)
 
     socketio.emit('lamp changed', {'isLampOn':isLampOn, 'totalClicks':totalClicks})
     # do something that changes PHYSICAL lamp... idk how
     return make_response({'userClicks': newClicks}, 200)
 
-@app.route('/createUser')
+@app.route('/createUser', methods=["POST"])
 def createUser():
 
-    username = request.get_json().username  
+    username = request.get_json()['username']
 
     alreadyExists = player_redis.exists(username)
 
     if alreadyExists:
         return make_response({'Error': 'Username already exists!!'}, 400)
     
-    players_redis.set(username, 0)
-    players_redis.hset(players_redis.hgetall('leaderboard').update({username: 0}))
+    player_redis.set(username, 0)
+    leaderboard = player_redis.hgetall('leaderboard')
+    leaderboard.update({username: 0})
+    player_redis.hmset('leaderboard', leaderboard)
 
     # maybe emit PLAYER CREATED (to call leaderboard)
     return make_response({'success': 'player created'}, 200)

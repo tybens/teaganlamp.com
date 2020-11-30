@@ -37,9 +37,76 @@ p {
 
 .intro-text {
   font-style: bold;
-  margin: 50px 10px;
+  margin: 0px 10px;
+  padding-top: 1%;
   text-align: center;
+  position: relative;
 }
+
+.blurry-text {
+  color: transparent;
+  text-shadow: 0 0 3px white;
+}
+
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  justify-content: center;
+  width: 800px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+}
+
+.form input {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  font-size: 30px;
+  letter-spacing: 3px;
+  padding-top: 15px;
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.form label {
+  color: white;
+  position: absolute;
+  bottom: 0px;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.form label::after{
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: -1px;
+  height: 100%;
+  width: 100%;
+  transform: translateX(-100%);
+}
+
+.content-username {
+  position: absolute;
+  bottom: 2px;
+  left: 0px;
+  transition: all 0.3s ease;
+}
+
+input:invalid {
+  box-shadow: none;
+}
+
+.form input:focus + .label-username .content-username, .form input:valid + .label-username .content-username {
+  transform: translateY(-150%);
+  transition: all 0.5s ease;
+  opacity: 0.4;
+}
+
 
 .light-bulbs {
   display: flex;
