@@ -21,12 +21,14 @@
           </label>
         </div>
       <div id="content-wrap" style="display: none;">
-      <section class ="light-bulbs">
-        <div class="light-bulb main"></div>
-      </section>
-      <div class="div-lamp-button">
-        <button id="lamp-button">Turn Off Lamp</button>
-        <div id="click-count"></div>
+        <div class="mid">
+      <label class="rocker">
+    <input type="checkbox" checked id="lamp-button">
+    <span class="switch-left">On</span>
+    <span class="switch-right">Off</span>
+  </label>
+  <div id="click-count"></div>
+</div>
 
 </div>
 </div>
@@ -39,7 +41,6 @@
 
       const form = document.getElementById('username-form');
       const lampButton = document.getElementById('lamp-button');
-      const lightBulbContainer = document.querySelector('.light-bulbs');
       const clickCount = document.getElementById('click-count');
       const usernameInput = document.getElementById('username-input')
       const introSection = document.getElementById('intro-text')
@@ -94,16 +95,10 @@
 
       async function changeLampButton(isLampOn, totalClicks) {
         if (!isLampOn) {
-          lampButton.innerText = 'Turn On Lamp';
-          lampButton.style.backgroundColor = 'grey';
-          lampButton.style.color = 'white';
-          lightBulbContainer.classList.remove('on');
+          lampButton.checked = false
 
         } else {
-          lampButton.innerText = 'Turn Off Lamp';
-          lampButton.style.color = 'black';
-          lampButton.style.backgroundColor = 'lemonchiffon';
-          lightBulbContainer.classList.add('on');
+          lampButton.checked = true
         }
 
         clickCount.innerText = 'THIS LAMP HAS BEEN CHANGED ' + String(totalClicks) + ' TIMES'
