@@ -8,22 +8,28 @@
     <link rel="stylesheet" href="styles.css" type="text/css">
   </head>
   <body>
+        
     <div id="page-container">
-      <div id="content-wrap">
-    <div class="grid-container">
-      <div class="intro-text">
+      <div class="intro-text blurry-text" id="intro-text">
         <h1>teagan lamp</h1>
         <p style="margin-top: 10px;">control teagan lamp from the comfort of ANYWHERE</p>
       </div>
+      <div class="form" id="username-form" style="display: ;">
+          <input type="text" name="username" required autocomplete="off" class="username-input" id="username-input" onkeydown="createUser(this)"/>
+          <label for="username" class="label-username">
+            <span class="content-username" style="font-size: 20px">enter username:</span>
+          </label>
+        </div>
+      <div id="content-wrap" style="display: none;">
       <section class ="light-bulbs">
         <div class="light-bulb main"></div>
       </section>
       <div class="div-lamp-button">
         <button id="lamp-button">Turn Off Lamp</button>
         <div id="click-count"></div>
-      </div>
 
-
+</div>
+</div>
   </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.min.js" integrity="sha512-/WwtKR6NnHomLo0O4w9QKc1INTPEJs7ko6u2aBTA1paPldhPl8LtXsi7a35iEZ69+9P5dcgVNESG8hrP4Y2t3w==" crossorigin="anonymous"></script>
     <script type="text/javascript">
@@ -31,25 +37,55 @@
       let server =  window.location.hostname === '127.0.0.1' ? 'http://127.0.0.1:5000':'https://teaganlamp.com';
       var socket = io.connect(server);
 
-
+      const form = document.getElementById('username-form');
       const lampButton = document.getElementById('lamp-button');
       const lightBulbContainer = document.querySelector('.light-bulbs');
       const clickCount = document.getElementById('click-count');
+      const usernameInput = document.getElementById('username-input')
+      const introSection = document.getElementById('intro-text')
+      const bodySection = document.getElementById('content-wrap')
+
+      var username;
+      var userClicks;
+      if (localStorage.getItem('username') == null) {
+        // show and get username input
+
+
+      } else {
+        introSection.classList.remove('blurry-text');
+        form.style.display = 'none';
+        bodySection.style.display = '';
+        username = localStorage.getItem('username');
+        console.log('Welcome Back! ' + username)
+        getLamp()
+
+      }
 
       // need to fetch status of lamp (on or off) from server
       socket.on('lamp changed', function(response) {
         // hopefully this updates my client isLampOn variable
         changeLampButton(response.isLampOn, response.totalClicks)
-        //console.log('server lamp is ' + String(isLampOn))
+
+        // TODO: fetch request for leaderboard and update
+        fetch(`${server}/leaderboard`)
+          .then(response => response.json())
+          .then(leaderboard => {
+
+        })
       });
 
-      getLamp()
       
       async function getLamp() {
-        fetch(`${server}/getLampAndClicks`).then(response => response.json())
+        fetch(`${server}/getLampAndClicksAndUserClicks`, {
+          method: 'POST',
+          body: JSON.stringify({'username': username}),
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(response => response.json())
           .then(response => {
             changeLampButton(response.isLampOn, response.totalClicks);
-            
+            userClicks = parseInt(response.userClicks)
           }).catch((error) => {
             console.error('Error:', error);
         });
@@ -73,16 +109,64 @@
         clickCount.innerText = 'THIS LAMP HAS BEEN CHANGED ' + String(totalClicks) + ' TIMES'
       }
 
+      async function changeLeaderboard(leaderboard) {
+        // TODO: !!
+      }
+
       async function doLamp() {
         // fetch request to change lamp
-        fetch(`${server}/changeLamp`).then(response => response.json())
+        userClicks += 1; // local clicks
+
+        fetch(`${server}/changeLamp`, {
+          method: 'POST',
+          body: JSON.stringify({'username': username}),
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(response => response.json())
           .then(response => {
+            // console.log(response)
+
           }).catch((error) => {
             console.error('Error:', error);
           });
       } 
 
+      function createUser(ele) {
+        if (event.keyCode == 13) {
+          event.preventDefault();
+          console.log('ENTER')
+          username = ele.value
+
+          fetch(`${server}/createUser`, {
+            method: 'POST',
+            body: JSON.stringify({'username': username}),
+            headers: {
+              'content-type': 'application/json'
+            }
+          }).then(response => {
+            if (response.status === 200) {
+                localStorage.setItem('username', username);
+                userClicks = 0;
+                form.style.display = 'none';
+                bodySection.style.display = '';
+                console.log('Welcome! ' + localStorage.getItem('username'))
+                // TODO: (maybe) show leaderboard
+            } else {
+              response.json().then(error => {
+                console.log(error)
+                // TODO: show username error (username already exists)
+              })
+            }
+          })
+        } 
+      };
       lampButton.addEventListener('click', doLamp);
+      form.addEventListener('mouseover', function() {
+        window.setTimeout(function() {
+          usernameInput.focus();
+        }, 0);
+      });
 
     </script>
     <script>

@@ -39,10 +39,17 @@ sudo ln -s /etc/nginx/sites-available/nginx-teaganlamp /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 sudo ufw allow 'Nginx Full'  # not sure if this is necessary (the article said it was)
 
-# systemctl setup
-sudo mv etc/gunicorn.service /etc/systemd/system/gunicorn.service
-sudo systemctl start gunicorn  # to start the gunicorn
-sudo systemctl enable gunicorn # to enable gunicorn to start on system startup
+# redis setup 
+sudo wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+cd redis-stable
+sudo make install
+
+# supervisor setup
+mkdir /var/log/teaganlamp.com  # where the errors are logged
+sudo mv etc/supervisor_services.conf /etc/supervisord.conf
+sudo supervisord -c /etc/supervisord.conf  # starts supervisord services
+	# to restart just the gunicorn: supervisorctl restart gunicorn
 
 # set up certbot (for https:// ssl verification)
 sudo snap install core

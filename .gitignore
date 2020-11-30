@@ -1,2 +1,5 @@
 venv/
+redis-stable/
+redis-stable.tar.gz
 __pycache__
+supersecretfile.txt
