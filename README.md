@@ -14,7 +14,9 @@ pip3 install -r requirements.txt
 
 start server with `gunicorn -b localhost:5000 --worker-class eventlet -w 1 app:app`
 
-optionally start another client with `live-server` (to see the button change for all connected clients upon any click)
+start redis with `$REDISBIN/src/redis-server` after redis is installed and setup
+
+start client with `live-server` in the static folder
 
 ### Deploying
 
