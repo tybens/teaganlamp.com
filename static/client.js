@@ -12,6 +12,7 @@ const userDiv = document.getElementById('user-div');
 
 var username;
 var userClicks;
+var leaderboard;
 if (localStorage.getItem('username') == null) {
   // show and get username input
   form.style.display = '';
@@ -34,11 +35,7 @@ socket.on('lamp changed', function(response) {
   changeLampButton(response.isLampOn, response.totalClicks)
 
   // TODO: fetch request for leaderboard and update
-  fetch(`${server}/leaderboard`)
-    .then(response => response.json())
-    .then(leaderboard => {
-
-  })
+  
 });
 
 
@@ -58,6 +55,14 @@ function getLamp() {
     }).catch((error) => {
       console.error('Error:', error);
   });
+
+  fetch(`${server}/leaderboard`)
+    .then(response => response.json())
+    .then(object => {
+      leaderboard = object;
+      // console.log("ALL SAVED USERS (since page load): ", leaderboard)
+
+  })
 }
 
 

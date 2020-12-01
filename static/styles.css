@@ -52,7 +52,13 @@ p {
 .blurry-text {
   color: transparent;
   text-shadow: 0 0 3px white;
+  -webkit-transition: text-shadow 0.5s ease-in-out, color 0.5s ease-in-out;
+  -moz-transition: text-shadow 0.5s ease-in-out, color 0.5s ease-in-out;
+  -ms-transition: text-shadow 0.5s ease-in-out, color 0.5s ease-in-out;
+  -o-transition: text-shadow 0.5s ease-in-out, color 0.5s ease-in-out;
+  transition: text-shadow 0.5s ease-in-out, color 0.5s ease-in-out;
 }
+
 .user-div {
   color: var(--grey);
   display: inline-block;
