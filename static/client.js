@@ -1,4 +1,3 @@
-// this is your arduino server
 let server =  window.location.hostname === '127.0.0.1' ? 'http://127.0.0.1:5000':'https://teaganlamp.com';
 var socket = io.connect(server);
 
@@ -13,6 +12,12 @@ const userDiv = document.getElementById('user-div');
 var username;
 var userClicks;
 var leaderboard;
+
+let welcomeBack = new MessageBox("#msgbox-area", {
+  closeTime: 2000,
+  hideCloseButton: true
+});
+
 if (localStorage.getItem('username') == null) {
   // show and get username input
   form.style.display = '';
@@ -23,8 +28,7 @@ if (localStorage.getItem('username') == null) {
   form.style.display = 'none';
   username = localStorage.getItem('username');
   document.getElementById('username').innerText = username;
-
-  console.log('Welcome Back! ' + username);
+  welcomeBack.show("Welcome back, " + username + "!")
   getLamp() // updates lamp and total clicks and user clicks
   userDiv.style.opacity = 1;
 }
@@ -120,9 +124,9 @@ function createUser(ele) {
       userDiv.style.opacity = 1;
 
       if (response.loggedIn) {
-        console.log('Welcome back! ' + username);
+        welcomeBack.show("Welcome back, " + username + "!")
       } else {
-        console.log('Welcome ' + username);
+        welcomeBack.show("Welcome to Teagan Lamp, " + username)
       }
 
     })
@@ -148,3 +152,5 @@ form.addEventListener('mouseover', function() {
     usernameInput.focus();
   }, 0);
 });
+
+
