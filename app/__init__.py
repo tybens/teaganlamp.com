@@ -9,12 +9,10 @@ from flask_cors import CORS
 from flask_socketio import SocketIO, send, emit
 from flask_pymongo import PyMongo
 
-PROD = False
-# check if in production and change static location
-if PROD:
-	static_folder = '/var/www/teaganlamp.com/html'
-else:
-	static_folder = '/home/tylerbenson/teaganLamp/static'
+# static file directory
+dir_path = os.path.dirname(os.path.realpath(__file__))
+static_folder = '/var/www/teaganlamp.com/html' if (dir_path == '/srv/teaganlamp.com') else 'static'
+
 app = Flask(__name__, static_url_path='', static_folder=static_folder) 
 CORS(app)
 app.config['SECRET_KEY'] = 'secret!!'
