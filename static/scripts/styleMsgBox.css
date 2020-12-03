@@ -1,0 +1,49 @@
+ .msgbox-area {
+   max-height: 100%;
+   position: fixed;
+   bottom: 20px;
+   left: 20px;
+}
+ .msgbox-area .msgbox-box {
+   font-size: inherit;
+   color: #fff;
+   background-color: #2e2e2e;
+   opacity: 0.8;
+   padding: 10px;
+   display: flex;
+   align-items: center;
+   position: relative;
+   border-radius: 12px;
+   box-shadow: 0 0 5px rgba(255,255,255, 0.2);
+   transition: opacity 300ms ease-in;
+}
+ .msgbox-area .msgbox-box.msgbox-box-hide {
+   opacity: 0;
+}
+ .msgbox-area .msgbox-box:last-child {
+   margin: 0;
+}
+ .msgbox-area .msgbox-content {
+   flex-shrink: 1;
+}
+ .msgbox-area .msgbox-close {
+   color: #fff;
+   font-weight: bold;
+   text-decoration: none;
+   margin: 0 0 0 20px;
+   flex-grow: 0;
+   flex-shrink: 0;
+   position: relative;
+   transition: text-shadow 225ms ease-out;
+}
+ .msgbox-area .msgbox-close:hover {
+   text-shadow: 0 0 3px #efefef;
+}
+@media (min-width: 768px) {
+   .msgbox-area {
+     height: 50px;
+     bottom: 0;
+     left: 10px;
+  }
+}
+ 

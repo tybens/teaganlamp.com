@@ -8,12 +8,15 @@
     <link rel="stylesheet" href="styles.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="scripts/messageBox.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="./scripts/styleMsgBox.css" type="text/css"></link>
   </head>
-  <body >
+  <body>
         
     <div id="page-container">
       <div class="intro-text">
-        <div class="user-div" style="opacity: 0;" id="user-div"><div class="help-tip" id="switch-user" onclick="switchUser()"><i class='fas fa-user-alt' style="font-size: 14px;"></i>&#8646;</div><span id="username" class="username-text">teaganPoop</span><br><span id="userClicks">clicks: </span></div>
+        <div class="user-div" style="opacity: 0;" id="user-div"><div class="help-tip" id="switch-user" onclick="switchUser()"><i class='fas fa-user-alt' style="font-size: 14px;"></i>&#8646;</div><span id="username" class="username-text">teaganPoop</span><br><span id="userClicks">clicks: </span>
+      </div>
         <div class="blurry-text animate__animated animate__fadeInDown" id="intro-text" style="pointer-events: none;">
         <h1>teagan lamp</h1>
         <p style="margin-top: 10px;">control teagan lamp from the comfort of ANYWHERE</p>
@@ -37,6 +40,7 @@
 
 </div>
 </div>
+<div id="msgbox-area" class="msgbox-area"></div>
   </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.min.js" integrity="sha512-/WwtKR6NnHomLo0O4w9QKc1INTPEJs7ko6u2aBTA1paPldhPl8LtXsi7a35iEZ69+9P5dcgVNESG8hrP4Y2t3w==" crossorigin="anonymous"></script>
     <script src="client.js" />
