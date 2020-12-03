@@ -90,7 +90,7 @@ def createUser():
     alreadyExists = player_redis.exists(username)
 
     if alreadyExists:
-        return make_response({'Error': 'Username already exists!!'}, 400)
+        return make_response({'loggedIn': 'Logged in to ' + str(username)}, 200)
     
     player_redis.set(username, 0)
     leaderboard = player_redis.hgetall('leaderboard')
