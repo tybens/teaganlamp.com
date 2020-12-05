@@ -7,7 +7,6 @@ import redis
 from flask import Flask, request, jsonify, send_from_directory, make_response
 from flask_cors import CORS
 from flask_socketio import SocketIO, send, emit
-from flask_pymongo import PyMongo
 
 # static file directory
 dir_path = os.path.dirname(os.path.realpath(__file__))
