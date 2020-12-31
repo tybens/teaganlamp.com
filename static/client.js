@@ -11,7 +11,6 @@ const userDiv = document.getElementById('user-div');
 
 var username;
 var userClicks;
-var leaderboard = [];
 
 let welcomeBack = new MessageBox("#msgbox-area", {
     closeTime: 2000,
@@ -106,9 +105,11 @@ function getLamp() {
     fetch(`${server}/leaderboard`)
         .then(response => response.json())
         .then(object => {
-            // make object into 
+            // make 'dict' object into array of [[key, value], [key, value]]:
             var dlist = Object.entries(object);
+            // sort it because arrays have relative positioning!
             let sorted = dlist.sort((a, b) => b[1] - a[1]);
+            // format it using `d3`
             formatLeaderboard(sorted);
 
         })
