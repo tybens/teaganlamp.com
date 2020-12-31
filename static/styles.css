@@ -16,8 +16,7 @@ body {
     font-family: Haettenschweiler, sans serif;
 }
 
-h1,
-p {
+h1, p {
     margin: 0;
 }
 
@@ -185,8 +184,7 @@ input:invalid {
     box-shadow: none;
 }
 
-.form input:focus+.label-username .content-username,
-.form input:valid+.label-username .content-username {
+.form input:focus+.label-username .content-username, .form input:valid+.label-username .content-username {
     transform: translateY(-150%);
     transition: all 0.5s ease;
     opacity: 0.4;
@@ -220,12 +218,9 @@ input:invalid {
     margin: 0 200px;
 }
 
-
 /* ---------------NEW SWITCH --------------------*/
 
-*,
-*:before,
-*:after {
+*, *:before, *:after {
     box-sizing: inherit;
     margin: 0;
     padding: 0;
@@ -238,7 +233,6 @@ input:invalid {
     justify-content: center;
     padding-top: 8em;
 }
-
 
 /* Switch starts here */
 
@@ -288,8 +282,7 @@ input:invalid {
     height: 0;
 }
 
-.switch-left,
-.switch-right {
+.switch-left, .switch-right {
     cursor: pointer;
     position: absolute;
     display: flex;
@@ -316,8 +309,7 @@ input:invalid {
     color: #fff;
 }
 
-.switch-left::before,
-.switch-right::before {
+.switch-left::before, .switch-right::before {
     content: "";
     position: absolute;
     width: 0.4em;
@@ -365,7 +357,6 @@ input:checked+.switch-left+.switch-right {
 input:checked+.switch-left+.switch-right::before {
     background-color: #ccc;
 }
-
 
 /* Keyboard Users */
 

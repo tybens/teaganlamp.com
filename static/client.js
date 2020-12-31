@@ -34,7 +34,7 @@ if (localStorage.getItem('username') == null) {
 }
 
 // need to fetch status of lamp (on or off) from server
-socket.on('lamp changed', function(response) {
+socket.on('lamp changed', function (response) {
     // hopefully this updates my client isLampOn variable
     changeLampButton(response.isLampOn, response.totalClicks)
 
@@ -88,12 +88,12 @@ function formatLeaderboard(leaderboard) {
 // gets current lamp, leaderboard, and userclicks
 function getLamp() {
     fetch(`${server}/getLampAndClicksAndUserClicks`, {
-            method: 'POST',
-            body: JSON.stringify({ 'username': username }),
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(response => response.json())
+        method: 'POST',
+        body: JSON.stringify({ 'username': username }),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => response.json())
         .then(response => {
             changeLampButton(response.isLampOn, response.totalClicks);
             userClicks = parseInt(response.userClicks);
@@ -147,17 +147,17 @@ async function doLamp() {
 }
 
 function createUser(ele) {
-    if (event.keyCode == 13) {
-        event.preventDefault();
+    if (keyCode == 13) {
+        preventDefault();
         username = ele.value
 
         fetch(`${server}/createUser`, {
-                method: 'POST',
-                body: JSON.stringify({ 'username': username }),
-                headers: {
-                    'content-type': 'application/json'
-                }
-            }).then(response => response.json())
+            method: 'POST',
+            body: JSON.stringify({ 'username': username }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => response.json())
             .then(response => {
                 form.classList.add('animate__fadeOut')
                 localStorage.setItem('username', username);
@@ -192,8 +192,8 @@ function switchUser() {
 
 lampButton.addEventListener('click', doLamp);
 
-form.addEventListener('mouseover', function() {
-    window.setTimeout(function() {
+form.addEventListener('mouseover', function () {
+    window.setTimeout(function () {
         usernameInput.focus();
     }, 0);
 });
