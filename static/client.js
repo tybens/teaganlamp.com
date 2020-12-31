@@ -41,7 +41,11 @@ socket.on('lamp changed', function (response) {
 
 });
 
-
+const colors = {
+    1: "#d4af37",
+    2: "#c0c0c0",
+    3: "#cd7f32"
+}
 function formatLeaderboard(leaderboard) {
     // target the table element in which to add one div for each driver
     const main = d3
@@ -50,7 +54,7 @@ function formatLeaderboard(leaderboard) {
     // for each driver add one table row
     // ! add a class to the row to differentiate the rows from the existing one
     // otherwise the select method would target the existing one and include one row less than the required amount
-    const drivers = main
+    const users = main
         .selectAll('tr.user')
         .data(leaderboard)
         .enter()
@@ -61,22 +65,26 @@ function formatLeaderboard(leaderboard) {
     // specify a class to style the elements differently with CSS
 
     // position using the index of the data points
-    drivers
+    users
         .append('td')
         .text((d, i) => i + 1)
         .attr('class', 'position');
 
 
     // name followed by the team
-    drivers
+    users
         .append('td')
         // include the last name in a separate element to style it differently
         // include the team also in another element for the same reason
-        .text((d) => d[0])
+        .html((d, i) => {
+            // if 1st, 2nd, or 3rd make special color, else make white
+            const color = !colors[i+1] ? '#FFFFFF' : colors[i+1];
+            return `<span style="color: ${color};">${d[0]}</span>`;
+        })
         .attr('class', 'user');
 
     // gap from the first driver
-    drivers
+    users
         .append('td')
         .attr('class', 'clicks')
         .append('span')

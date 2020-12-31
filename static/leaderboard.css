@@ -62,14 +62,6 @@ table td.user strong {
     font-weight: 500;
 }
 
-table td.user span {
-    text-transform: capitalize;
-    margin-left: 0.75rem;
-    font-size: 0.8rem;
-    color: #999;
-    letter-spacing: initial;
-}
-
 
 /* style the span nested in the last cell to have the clicks in a rounded rectangle */
 
