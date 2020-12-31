@@ -1,55 +1,80 @@
 <!DOCTYPE html>
 <html lang="en" class="animate__animated animate__fadeIn">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Teagan Lamp</title>
     <link rel="stylesheet" href="styles.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="leaderboard.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <script src="scripts/messageBox.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="./scripts/styleMsgBox.css" type="text/css"></link>
-  </head>
-  <body>
-        
-    <div id="page-container">
-      <div class="intro-text">
-        <div class="user-div" style="opacity: 0;" id="user-div"><div class="help-tip" id="switch-user" onclick="switchUser()"><i class='fas fa-user-alt' style="font-size: 14px;"></i>&#8646;</div><span id="username" class="username-text">teaganPoop</span><br><span id="userClicks">clicks: </span>
-      </div>
-        <div class="blurry-text animate__animated animate__fadeInDown" id="intro-text" style="pointer-events: none;">
-        <h1>teagan lamp</h1>
-        <p style="margin-top: 10px;">control teagan lamp from the comfort of ANYWHERE</p>
-        </div>
-      </div>
-      <div class="form animate__animated animate__fadeIn" id="username-form" style="display: none;">
-          <input type="text" name="username" required autocomplete="off" class="username-input" id="username-input" onkeydown="createUser(this)"/>
-          <label for="username" class="label-username">
-            <span class="content-username" style="font-size: 20px">enter username:</span>
-          </label>
-        </div>
-      <div id="content-wrap" style="display: none;">
-        <div class="mid">
-      <label class="rocker noselect">
-    <input type="checkbox" checked id="lamp-button">
-    <span class="switch-left">On</span>
-    <span class="switch-right">Off</span>
-  </label>
-  <div id="click-count"></div>
-</div>
+    <link rel="stylesheet" href="./scripts/styleMsgBox.css" type="text/css">
+    </link>
+</head>
 
-</div>
-</div>
-<div id="msgbox-area" class="msgbox-area"></div>
-  </div>
+<body>
+
+    <div id="page-container">
+        <div class="intro-text">
+            <div class="user-div" style="opacity: 0;" id="user-div">
+                <div class="help-tip" id="switch-user" onclick="switchUser()"><i class='fas fa-user-alt' style="font-size: 14px;"></i>&#8646;</div><span id="username" class="username-text">teaganPoop</span><br><span id="userClicks">clicks: </span>
+            </div>
+            <div class="blurry-text animate__animated animate__fadeInDown" id="intro-text" style="pointer-events: none;">
+                <h1>teagan lamp</h1>
+                <p style="margin-top: 10px;">control teagan lamp from the comfort of ANYWHERE</p>
+            </div>
+        </div>
+        <div class="form animate__animated animate__fadeIn" id="username-form" style="display: none;">
+            <input type="text" name="username" required autocomplete="off" class="username-input" id="username-input" onkeydown="createUser(this)" />
+            <label for="username" class="label-username">
+        <span class="content-username" style="font-size: 20px">enter username:</span>
+      </label>
+        </div>
+        <div id="content-wrap" style="display: none;">
+            <div class="mid">
+                <label class="rocker noselect">
+          <input type="checkbox" checked id="lamp-button">
+          <span class="switch-left">On</span>
+          <span class="switch-right">Off</span>
+        </label>
+                <div id="click-count"></div>
+            </div>
+            <div id="table-wrap">
+                <table>
+                    <tr>
+                        <th>
+                            Pos
+                        </th>
+                        <th>
+                            User
+                        </th>
+                        <th>
+                            Clicks
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="msgbox-area" class="msgbox-area"></div>
+    </div>
+
+    <script src='https://d3js.org/d3.v6.min.js' charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.min.js" integrity="sha512-/WwtKR6NnHomLo0O4w9QKc1INTPEJs7ko6u2aBTA1paPldhPl8LtXsi7a35iEZ69+9P5dcgVNESG8hrP4Y2t3w==" crossorigin="anonymous"></script>
     <script src="client.js" />
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'G-7JF3B0HFYJ');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-7JF3B0HFYJ');
     </script>
-  </body>
+</body>
+
 </html>
