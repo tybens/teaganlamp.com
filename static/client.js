@@ -11,6 +11,7 @@ const userDiv = document.getElementById('user-div');
 
 var username;
 var userClicks;
+var leaderboard = [];
 
 let welcomeBack = new MessageBox("#msgbox-area", {
     closeTime: 2000,
@@ -22,6 +23,7 @@ if (localStorage.getItem('username') == null) {
     form.style.display = '';
 
 } else {
+    // they've already logged in, so go past the enter username page
     introSection.classList.remove('blurry-text');
     bodySection.style.display = '';
     form.style.display = 'none';
@@ -37,24 +39,40 @@ socket.on('lamp changed', function (response) {
     // hopefully this updates my client isLampOn variable
     changeLampButton(response.isLampOn, response.totalClicks)
 
-    // TODO: fetch request for leaderboard and update
+    // user who clicked from request to change leaderboard
+    // this is currently a terrible way to do it. :'(
+    leaderboard[leaderboard.map(e => e[0]).indexOf(response.userClicked)][1] = String(1+parseInt(leaderboard[leaderboard.map(e => e[0]).indexOf(response.userClicked)][1]))
+    redrawLeaderboard(leaderboard)
 
 });
 
-const colors = {
+const topColors = {
     1: "#d4af37",
     2: "#c0c0c0",
     3: "#cd7f32"
 }
-function formatLeaderboard(leaderboard) {
-    // target the table element in which to add one div for each driver
-    const main = d3
-        .select('table');
 
+function redrawLeaderboard(leaderboard) {
+
+    var users = d3.select('table').selectAll('tr.user');
+
+    users.remove();
+
+    formatLeaderboard(leaderboard);
+    
+}
+
+function formatLeaderboard(leaderboard) {
+    // sort leaderboard!!
+    leaderboard = leaderboard.sort((a, b) => b[1] - a[1]);
+    // target the table element in which to add one div for each driver
+    
+    var main = d3
+        .select('table');
     // for each driver add one table row
     // ! add a class to the row to differentiate the rows from the existing one
     // otherwise the select method would target the existing one and include one row less than the required amount
-    const users = main
+    var users = main
         .selectAll('tr.user')
         .data(leaderboard)
         .enter()
@@ -78,13 +96,15 @@ function formatLeaderboard(leaderboard) {
         // include the team also in another element for the same reason
         .html((d, i) => {
             // if 1st, 2nd, or 3rd make special color, else make white
-            const color = !colors[i+1] ? '#FFFFFF' : colors[i+1];
-            return `<span style="color: ${color};">${d[0]}</span>`;
+            const color = !topColors[i+1] ? '#FFFFFF' : topColors[i+1];
+            const weight = !(color=='#FFFFFF') ? 'bold' : 'normal';
+            return `<span style="color: ${color}; font-weight: ${weight}">${d[0]}</span>`;
         })
         .attr('class', 'user');
 
     // gap from the first driver
     users
+        .data(leaderboard)
         .append('td')
         .attr('class', 'clicks')
         .append('span')
@@ -114,11 +134,10 @@ function getLamp() {
         .then(response => response.json())
         .then(object => {
             // make 'dict' object into array of [[key, value], [key, value]]:
-            var dlist = Object.entries(object);
+            leaderboard = Object.entries(object);
             // sort it because arrays have relative positioning!
-            let sorted = dlist.sort((a, b) => b[1] - a[1]);
             // format it using `d3`
-            formatLeaderboard(sorted);
+            formatLeaderboard(leaderboard);
 
         })
 }
@@ -156,8 +175,8 @@ async function doLamp() {
 }
 
 function createUser(ele) {
-    if (keyCode == 13) {
-        preventDefault();
+    if (event.keyCode == 13) {
+        event.preventDefault();
         username = ele.value
 
         fetch(`${server}/createUser`, {

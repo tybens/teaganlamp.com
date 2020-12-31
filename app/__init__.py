@@ -75,7 +75,7 @@ def changeLamp():
     leaderboard.update({username: newClicks})
     player_redis.hmset('leaderboard', leaderboard)
 
-    socketio.emit('lamp changed', {'isLampOn':isLampOn, 'totalClicks':totalClicks})
+    socketio.emit('lamp changed', {'isLampOn':isLampOn, 'totalClicks':totalClicks, 'userClicked':username})
     # do something that changes PHYSICAL lamp... idk how
     return make_response({'userClicks': newClicks}, 200)
 
