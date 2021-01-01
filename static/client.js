@@ -41,7 +41,7 @@ socket.on('lamp changed', function (response) {
 
     // user who clicked from request to change leaderboard
     // this is currently a terrible way to do it. :'(
-    leaderboard[leaderboard.map(e => e[0]).indexOf(response.userClicked)][1] = String(1+parseInt(leaderboard[leaderboard.map(e => e[0]).indexOf(response.userClicked)][1]))
+    leaderboard[leaderboard.map(e => e[0]).indexOf(response.userClicked)][1] = String(1 + parseInt(leaderboard[leaderboard.map(e => e[0]).indexOf(response.userClicked)][1]))
     redrawLeaderboard(leaderboard)
 
 });
@@ -59,14 +59,14 @@ function redrawLeaderboard(leaderboard) {
     users.remove();
 
     formatLeaderboard(leaderboard);
-    
+
 }
 
 function formatLeaderboard(leaderboard) {
     // sort leaderboard!!
     leaderboard = leaderboard.sort((a, b) => b[1] - a[1]);
     // target the table element in which to add one div for each driver
-    
+
     var main = d3
         .select('table');
     // for each driver add one table row
@@ -96,8 +96,8 @@ function formatLeaderboard(leaderboard) {
         // include the team also in another element for the same reason
         .html((d, i) => {
             // if 1st, 2nd, or 3rd make special color, else make white
-            const color = !topColors[i+1] ? '#FFFFFF' : topColors[i+1];
-            const weight = !(color=='#FFFFFF') ? 'bold' : 'normal';
+            const color = !topColors[i + 1] ? '#FFFFFF' : topColors[i + 1];
+            const weight = !(color == '#FFFFFF') ? 'bold' : 'normal';
             return `<span style="color: ${color}; font-weight: ${weight}">${d[0]}</span>`;
         })
         .attr('class', 'user');
