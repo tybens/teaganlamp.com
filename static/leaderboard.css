@@ -1,0 +1,74 @@
+#table-wrap {
+    /* center the table horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    /* position relative to include a band on the left of the container */
+    margin: 1rem 0;
+    position: relative;
+    /* cap the width of the table, allowing for a sizeable portion of white space if allowed by the viewport */
+    width: 100%;
+    max-width: 800px;
+    /* spacing to separate the table rows vertically */
+    border-spacing: 0 1rem;
+}
+
+
+/* center every element nested in a table row */
+
+table tr>* {
+    text-align: center;
+    padding: 0.5rem;
+}
+
+
+/* align every second item of each row to the left */
+
+table tr>*:nth-child(2) {
+    text-align: left;
+}
+
+
+/* style the headings to have thin uppercase titles for the columns */
+
+table th {
+    font-weight: 300;
+    letter-spacing: 0.04rem;
+    font-size: 0.9rem;
+    color: #eee;
+    text-transform: uppercase;
+}
+
+
+/* slightly increase the weight of the cell describing the position */
+
+table td.position {
+    font-weight: 500;
+}
+
+
+/* style the cell with the user visually separating the first, last name and team */
+
+table td.user {
+    font-size: 1.1rem;
+    letter-spacing: 0.05rem;
+}
+
+table td.user strong {
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+
+/* style the span nested in the last cell to have the clicks in a rounded rectangle */
+
+table td.clicks span {
+    background: #38383F;
+    border-radius: 30px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
