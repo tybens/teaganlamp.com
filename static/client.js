@@ -41,7 +41,12 @@ socket.on('lamp changed', function (response) {
 
     // user who clicked from request to change leaderboard
     // this is currently a terrible way to do it. :'(
-    leaderboard[leaderboard.map(e => e[0]).indexOf(response.userClicked)][1] = String(1 + parseInt(leaderboard[leaderboard.map(e => e[0]).indexOf(response.userClicked)][1]))
+    userIndex = leaderboard.map(e => e[0]).indexOf(response.userClicked)
+    if (userIndex === -1 ) {
+        leaderboard.push([response.userClicked, 1])
+    } else {
+    leaderboard[userIndex][1] = String(1 + parseInt(leaderboard[userIndex][1]))
+    };
     redrawLeaderboard(leaderboard)
 
 });
@@ -152,10 +157,6 @@ async function changeLampButton(isLampOn, totalClicks) {
     }
 
     clickCount.innerText = 'THIS LAMP HAS BEEN CHANGED ' + String(totalClicks) + ' TIMES';
-}
-
-async function changeLeaderboard(leaderboard) {
-    // TODO: !!
 }
 
 async function doLamp() {
