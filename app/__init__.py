@@ -28,7 +28,7 @@ else:
     totalClicks = str(0)
 
 if not player_redis.exists('leaderboard'):
-    player_redis.hmset('leaderboard', {'teagan_poopoo': 0})
+    player_redis.hmset('leaderboard', {'teagan_poopoo': 69})
 
 if not player_redis.exists('isLampOn'):
     player_redis.set('isLampOn', 1) 

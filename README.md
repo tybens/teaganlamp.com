@@ -1,6 +1,22 @@
 # teaganlamp.com
 
-Basic flask app to interact with teagan lamp.
+Minimal Web app to interact with teagan's desk lamp. 
+
+### **TODO:** 
+
+- Clicks per minute / second and cool graphic
+- Green circle next to leaderboard username for currently active users
+- load leaderboard only on scroll to the bottom of the page
+- MAYBE:
+  - optimize leaderboard
+  - button to display stats
+    - time spent on / time spent off 
+    - highest recorded click speed and user
+    - funniest name: teagan_poopoo
+  - poo poo pee pee
+
+
+### Local Setup
 
 ```Bash 
 git clone https://github.com/tybens/teaganlamp.com
@@ -19,21 +35,6 @@ start redis with `$REDISBIN/src/redis-server` after redis is installed and setup
 start client with `live-server` in the static folder
 
 
-### Updating
-```Bash
-cd /srv/teaganlamp.com
-sudo git pull
-
-# if gunicorn app needs to be restarted:
-sudo supervisorctl restart gunicorn
-
-# if nginx needs to be reloaded:
-sudo systemctl reload nginx
-
-# if redis needs to be restarted [PROBABLY NOT]:
-sudo supervisorctl restart redis
-
-```
 ### Deploying
 
 ```Bash
@@ -48,7 +49,7 @@ sudo pip3 install -r requirements.txt
 
 # static files setup
 sudo mkdir /var/www/teaganlamp.com
-sudo chown 755 /var/www/teaganlamp.com
+sudo chmod 755 /var/www/teaganlamp.com
 sudo ln -s /srv/teaganlamp.com/static /var/www/teaganlamp.com/html
 
 # nginx config
@@ -76,3 +77,28 @@ sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 sudo certbot --nginx
 ```
+
+### Updating deployment (after deployed)
+```Bash
+cd /srv/teaganlamp.com
+sudo git pull
+
+# if gunicorn app needs to be restarted:
+sudo supervisorctl restart gunicorn
+
+# if nginx needs to be reloaded:
+sudo systemctl reload nginx
+
+# if redis needs to be restarted [PROBABLY NOT]:
+sudo supervisorctl restart redis
+
+# useful commands
+sudo supervisorctl status
+sudo systemctl status nginx
+# error and access log directories :
+/var/log/nginx
+/var/log/teaganlamp.com # gunicorn and redis
+/srv/teaganlamp.com/supervisord.log # supervisord
+
+```
+
