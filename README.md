@@ -18,6 +18,22 @@ start redis with `$REDISBIN/src/redis-server` after redis is installed and setup
 
 start client with `live-server` in the static folder
 
+
+### Updating
+```Bash
+cd /srv/teaganlamp.com
+sudo git pull
+
+# if gunicorn app needs to be restarted:
+sudo supervisorctl restart gunicorn
+
+# if nginx needs to be reloaded:
+sudo systemctl reload nginx
+
+# if redis needs to be restarted [PROBABLY NOT]:
+sudo supervisorctl restart redis
+
+```
 ### Deploying
 
 ```Bash
@@ -31,9 +47,9 @@ source venv/bin/activate
 sudo pip3 install -r requirements.txt
 
 # static files setup
-sudo mkdir /var/www/static
-sudo mv -v static/* /var/www/static/
-sudo chown 755 /var/www/static
+sudo mkdir /var/www/teaganlamp.com
+sudo chown 755 /var/www/teaganlamp.com
+sudo ln -s /srv/teaganlamp.com/static /var/www/teaganlamp.com/html
 
 # nginx config
 sudo mv etc/nginx-teaganlamp /etc/nginx/sites-available/nginx-teaganlamp

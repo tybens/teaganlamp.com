@@ -4,3 +4,5 @@ redis-stable.tar.gz
 __pycache__
 supersecretfile.txt
 *.rdb
+app/supervisord.log
+supervisord.log

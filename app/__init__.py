@@ -10,7 +10,7 @@ from flask_socketio import SocketIO, send, emit
 
 # static file directory
 dir_path = os.path.dirname(os.path.realpath(__file__))
-static_folder = '/var/www/teaganlamp.com/html' if (dir_path == '/srv/teaganlamp.com') else 'static'
+static_folder = '/var/www/teaganlamp.com/html' if (dir_path == '/srv/teaganlamp.com/app') else 'static'
 
 app = Flask(__name__, static_url_path='', static_folder=static_folder) 
 CORS(app)
